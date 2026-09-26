@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FastPlayer · Ibofast</title>
+<meta name="description" content="Téléchargez FastPlayer et Ibofast, lecteurs IPTV pour TV Android.">
+<style>
+:root { --bg:#0b0b0d; --card:#151517; --line:#2c2c30; --text:#fff; --muted:#a0a0a8; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system, Roboto, "Segoe UI", sans-serif; padding:24px 16px 40px; }
+.wrap { max-width:960px; margin:0 auto; }
+.langs { text-align:end; font-size:13px; margin-bottom:10px; }
+.langs a { color:var(--muted); text-decoration:none; margin-inline-start:12px; cursor:pointer; }
+.langs a.on { color:#fff; font-weight:bold; }
+h1 { text-align:center; font-size:24px; margin:0 0 6px; }
+.intro { text-align:center; color:var(--muted); font-size:14px; line-height:1.5; max-width:620px; margin:0 auto 24px; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+@media (max-width:700px) { .grid { grid-template-columns:1fr; } }
+.card { background:var(--card); border:1px solid var(--line); border-top:4px solid var(--a); border-radius:18px; padding:22px; }
+.head { display:flex; align-items:center; gap:14px; margin-bottom:6px; }
+.head img { width:60px; height:60px; border-radius:14px; }
+.head h2 { margin:0; font-size:22px; color:var(--a); }
+.tag { color:var(--muted); font-size:13px; margin:0 0 14px; }
+.btn { display:block; text-align:center; padding:14px; border-radius:999px; text-decoration:none; font-weight:bold; font-size:15px; margin-top:10px; }
+.btn.main { background:var(--a); color:var(--on); }
+.btn.sec { border:1px solid #3a3a3e; color:#fff; }
+.small { color:var(--muted); font-size:12px; text-align:center; margin:6px 0 0; line-height:1.5; }
+.code { background:#0f0f11; border:1px solid var(--line); border-radius:14px; padding:12px; margin-top:14px; text-align:center; }
+.code p { color:var(--muted); font-size:12px; margin:0; }
+.code b { display:block; color:var(--a); font-size:34px; letter-spacing:4px; margin:4px 0; }
+.note { background:#1b1710; border:1px solid #4a3d1c; color:#e8c77a; border-radius:12px; padding:12px 14px; font-size:13px; line-height:1.55; margin-top:22px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="langs"><a data-l="fr">Français</a><a data-l="en">English</a><a data-l="ar">العربية</a></div>
+  <h1 data-t="title"></h1>
+  <p class="intro" data-t="intro"></p>
+
+  <div class="grid">
+    <div class="card" style="--a:#FF2D55; --on:#fff">
+      <div class="head"><img src="logo_fastplayer.png" alt="FastPlayer"><h2>FastPlayer</h2></div>
+      <p class="tag" data-t="fp_tag"></p>
+      <a class="btn main" href="http://fastplayer0203.duckdns.org/fastplayer_license/dl.php" data-t="dl_main"></a>
+      <a class="btn sec" id="gh-fastplayer" href="https://github.com/farih020387-max/fastplayer-download/raw/main/FastPlayer-2.27.apk" data-t="dl_backup"></a>
+      <p class="small" id="ver-fastplayer"></p>
+      <div class="code"><p data-t="code"></p><b>2687630</b></div>
+    </div>
+
+    <div class="card" style="--a:#D4AF37; --on:#000">
+      <div class="head"><img src="logo_ibofast.png" alt="Ibofast"><h2>Ibofast</h2></div>
+      <p class="tag" data-t="ib_tag"></p>
+      <a class="btn main" href="http://fastplayer0203.duckdns.org/ibofast_license/dl.php" data-t="dl_main"></a>
+      <a class="btn sec" id="gh-ibofast" href="https://github.com/farih020387-max/fastplayer-download/raw/main/Ibofast-1.5.apk" data-t="dl_backup"></a>
+      <p class="small" id="ver-ibofast"></p>
+      <div class="code"><p data-t="code"></p><b>2844810</b></div>
+    </div>
+  </div>
+
+  <div class="note" data-t="note"></div>
+</div>
+
+<script>
+const T = {
+  fr: {
+    title: 'Vos lecteurs IPTV pour TV Android',
+    intro: 'Deux applications, deux styles. Gratuites à installer, elles fonctionnent avec votre propre playlist (Xtream Codes ou M3U).',
+    fp_tag: 'Le classique rapide et simple, style néon rouge.',
+    ib_tag: 'Le nouveau style premium noir et or.',
+    dl_main: '⬇ Télécharger',
+    dl_backup: 'Lien de secours (GitHub)',
+    code: 'Sur la TV, dans l’app Downloader, tapez le code :',
+    ver: 'Version du lien de secours : %s',
+    note: 'Si « Télécharger » ne répond pas, utilisez le lien de secours : il fonctionne toujours. Le téléphone peut alors appeler le fichier « .apk.bin » ou afficher un avertissement : c’est normal, renommez-le en « .apk » si besoin, puis installez.'
+  },
+  en: {
+    title: 'Your IPTV players for Android TV',
+    intro: 'Two apps, two styles. Free to install, they work with your own playlist (Xtream Codes or M3U).',
+    fp_tag: 'The fast and simple classic, red neon style.',
+    ib_tag: 'The new premium black and gold style.',
+    dl_main: '⬇ Download',
+    dl_backup: 'Backup link (GitHub)',
+    code: 'On your TV, in the Downloader app, enter the code:',
+    ver: 'Backup link version: %s',
+    note: 'If “Download” does not respond, use the backup link: it always works. Your phone may name the file “.apk.bin” or show a warning: this is normal, rename it to “.apk” if needed, then install.'
+  },
+  ar: {
+    title: 'مشغلات IPTV لتلفاز أندرويد',
+    intro: 'تطبيقان بأسلوبين. مجانيان للتثبيت ويعملان بقائمتك الخاصة (Xtream Codes أو M3U).',
+    fp_tag: 'الكلاسيكي السريع والبسيط بأسلوب النيون الأحمر.',
+    ib_tag: 'الأسلوب الجديد الفاخر بالأسود والذهبي.',
+    dl_main: '⬇ تحميل',
+    dl_backup: 'رابط احتياطي (GitHub)',
+    code: 'على التلفاز، في تطبيق Downloader، اكتب الرمز:',
+    ver: 'إصدار الرابط الاحتياطي: %s',
+    note: 'إذا لم يستجب زر "تحميل"، استعمل الرابط الاحتياطي: فهو يعمل دائماً. قد يسمي الهاتف الملف ".apk.bin" أو يعرض تحذيراً: هذا عادي، أعد تسميته إلى ".apk" إذا لزم الأمر ثم ثبّته.'
+  }
+};
+const found = { fastplayer: 'FastPlayer-2.27.apk', ibofast: 'Ibofast-1.5.apk' };
+let lang = 'fr';
+try { lang = localStorage.getItem('lang') || ''; } catch (e) {}
+if (!T[lang]) { const n = (navigator.language || 'fr').slice(0, 2); lang = T[n] ? n : 'fr'; }
+
+function render() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
+  document.querySelectorAll('.langs a').forEach(a => a.classList.toggle('on', a.dataset.l === lang));
+  for (const app of ['fastplayer', 'ibofast']) {
+    const v = (found[app].match(/-([\d.]+)\.apk$/) || [])[1] || '';
+    document.getElementById('ver-' + app).textContent = v ? t.ver.replace('%s', v) : '';
+  }
+}
+document.querySelectorAll('.langs a').forEach(a => a.addEventListener('click', () => {
+  lang = a.dataset.l;
+  try { localStorage.setItem('lang', lang); } catch (e) {}
+  render();
+}));
+
+// Le lien de secours suit tout seul le dernier APK depose dans ce depot (API GitHub).
+function versionKey(name) { return ((name.match(/-([\d.]+)\.apk$/) || [])[1] || '0').split('.').map(Number); }
+function newer(a, b) {
+  const x = versionKey(a), y = versionKey(b);
+  for (let i = 0; i < Math.max(x.length, y.length); i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); }
+  return false;
+}
+fetch('https://api.github.com/repos/farih020387-max/fastplayer-download/contents/')
+  .then(r => r.ok ? r.json() : [])
+  .then(files => {
+    const best = {};
+    for (const f of files) {
+      const m = /^(FastPlayer|Ibofast)-[\d.]+\.apk$/.exec(f.name);
+      if (!m) continue;
+      const app = m[1].toLowerCase();
+      if (!best[app] || newer(f.name, best[app])) best[app] = f.name;
+    }
+    for (const app in best) {
+      found[app] = best[app];
+      document.getElementById('gh-' + app).href = 'https://github.com/farih020387-max/fastplayer-download/raw/main/' + best[app];
+    }
+    render();
+  })
+  .catch(() => {});
+render();
+</script>
+</body>
+</html>
