@@ -43,7 +43,7 @@ h1 { text-align:center; font-size:24px; margin:0 0 6px; }
       <div class="head"><img src="logo_fastplayer.png" alt="FastPlayer"><h2>FastPlayer</h2></div>
       <p class="tag" data-t="fp_tag"></p>
       <a class="btn main" href="http://fastplayer0203.duckdns.org/fastplayer_license/dl.php" data-t="dl_main"></a>
-      <a class="btn sec" id="gh-fastplayer" href="https://github.com/farih020387-max/fastplayer-download/raw/main/FastPlayer-2.27.apk" data-t="dl_backup"></a>
+      <a class="btn sec" id="gh-fastplayer" href="https://github.com/farih020387-max/fastplayer-download/raw/main/FastPlayer-2.30-TEST.apk" data-t="dl_backup"></a>
       <p class="small" id="ver-fastplayer"></p>
       <div class="code"><p data-t="code"></p><b>2687630</b></div>
     </div>
@@ -52,7 +52,7 @@ h1 { text-align:center; font-size:24px; margin:0 0 6px; }
       <div class="head"><img src="logo_ibofast.png" alt="Ibofast"><h2>Ibofast</h2></div>
       <p class="tag" data-t="ib_tag"></p>
       <a class="btn main" href="http://fastplayer0203.duckdns.org/ibofast_license/dl.php" data-t="dl_main"></a>
-      <a class="btn sec" id="gh-ibofast" href="https://github.com/farih020387-max/fastplayer-download/raw/main/Ibofast-1.5.apk" data-t="dl_backup"></a>
+      <a class="btn sec" id="gh-ibofast" href="https://github.com/farih020387-max/fastplayer-download/raw/main/Ibofast-1.8.apk" data-t="dl_backup"></a>
       <p class="small" id="ver-ibofast"></p>
       <div class="code"><p data-t="code"></p><b>2844810</b></div>
     </div>
@@ -97,7 +97,7 @@ const T = {
     note: 'إذا لم يستجب زر "تحميل"، استعمل الرابط الاحتياطي: فهو يعمل دائماً. قد يسمي الهاتف الملف ".apk.bin" أو يعرض تحذيراً: هذا عادي، أعد تسميته إلى ".apk" إذا لزم الأمر ثم ثبّته.'
   }
 };
-const found = { fastplayer: 'FastPlayer-2.27.apk', ibofast: 'Ibofast-1.5.apk' };
+const found = { fastplayer: 'FastPlayer-2.30-TEST.apk', ibofast: 'Ibofast-1.8.apk' };
 let lang = 'fr';
 try { lang = localStorage.getItem('lang') || ''; } catch (e) {}
 if (!T[lang]) { const n = (navigator.language || 'fr').slice(0, 2); lang = T[n] ? n : 'fr'; }
@@ -109,7 +109,7 @@ function render() {
   document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
   document.querySelectorAll('.langs a').forEach(a => a.classList.toggle('on', a.dataset.l === lang));
   for (const app of ['fastplayer', 'ibofast']) {
-    const v = (found[app].match(/-([\d.]+)\.apk$/) || [])[1] || '';
+    const v = (found[app].match(/-(\d[\d.]*)(?:-[A-Za-z0-9]+)?\.apk$/) || [])[1] || '';
     document.getElementById('ver-' + app).textContent = v ? t.ver.replace('%s', v) : '';
   }
 }
@@ -120,7 +120,7 @@ document.querySelectorAll('.langs a').forEach(a => a.addEventListener('click', (
 }));
 
 // Le lien de secours suit tout seul le dernier APK depose dans ce depot (API GitHub).
-function versionKey(name) { return ((name.match(/-([\d.]+)\.apk$/) || [])[1] || '0').split('.').map(Number); }
+function versionKey(name) { return ((name.match(/-(\d[\d.]*)(?:-[A-Za-z0-9]+)?\.apk$/) || [])[1] || '0').split('.').map(Number); }
 function newer(a, b) {
   const x = versionKey(a), y = versionKey(b);
   for (let i = 0; i < Math.max(x.length, y.length); i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); }
@@ -131,7 +131,7 @@ fetch('https://api.github.com/repos/farih020387-max/fastplayer-download/contents
   .then(files => {
     const best = {};
     for (const f of files) {
-      const m = /^(FastPlayer|Ibofast)-[\d.]+\.apk$/.exec(f.name);
+      const m = /^(FastPlayer|Ibofast)-\d[\d.]*(?:-[A-Za-z0-9]+)?\.apk$/i.exec(f.name);
       if (!m) continue;
       const app = m[1].toLowerCase();
       if (!best[app] || newer(f.name, best[app])) best[app] = f.name;
